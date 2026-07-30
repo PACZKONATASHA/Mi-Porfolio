@@ -222,6 +222,85 @@ body {
   .hero { cursor: auto; }
 }
 
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.hero-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.1);
+  filter: saturate(1.4) contrast(1.1) brightness(1.08);
+  animation: hero-bg-pan 24s ease-in-out infinite alternate;
+}
+
+.hero-bg-clouds {
+  position: absolute;
+  inset: -15%;
+  background:
+    radial-gradient(ellipse 32% 20% at 18% 28%, rgba(255, 255, 255, .5), transparent 60%),
+    radial-gradient(ellipse 26% 16% at 72% 58%, rgba(255, 255, 255, .4), transparent 60%),
+    radial-gradient(ellipse 36% 22% at 48% 82%, rgba(255, 255, 255, .32), transparent 60%),
+    radial-gradient(ellipse 22% 14% at 85% 15%, rgba(255, 255, 255, .35), transparent 60%);
+  filter: blur(16px);
+  mix-blend-mode: screen;
+  opacity: .65;
+  animation: hero-clouds-drift 45s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+.hero-bg-stars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.hero-star {
+  position: absolute;
+  width: var(--size, 3px);
+  height: var(--size, 3px);
+  border-radius: 50%;
+  background: #fff;
+  box-shadow:
+    0 0 8px 2px rgba(255, 255, 255, .95),
+    0 0 16px 5px rgba(255, 255, 255, .45);
+  opacity: 0;
+  animation: hero-star-twinkle var(--dur, 3s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+@keyframes hero-bg-pan {
+  0%   { transform: scale(1.1) translate(0, 0); }
+  100% { transform: scale(1.22) translate(-2.5%, -3%); }
+}
+@keyframes hero-clouds-drift {
+  0%   { transform: translate(-4%, -1%) scale(1); }
+  50%  { transform: translate(4%, 2%) scale(1.08); }
+  100% { transform: translate(-3%, 3%) scale(1); }
+}
+@keyframes hero-star-twinkle {
+  0%, 100% { opacity: 0; transform: scale(.4); }
+  50%      { opacity: 1; transform: scale(1.6); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-bg img,
+  .hero-bg-clouds { animation: none; }
+  .hero-star { animation: none; opacity: .7; }
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, .35) 0%, rgba(0, 0, 0, .55) 55%, rgba(0, 0, 0, .78) 100%);
+  pointer-events: none;
+}
+
 .hero-cursor {
   position: absolute;
   top: 0;

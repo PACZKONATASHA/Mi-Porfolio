@@ -155,6 +155,22 @@
     },
   ];
 
+  /* ---------- Hero: estrellas brillando sobre la foto ---------- */
+  const heroStars = document.querySelector('[data-hero-stars]');
+  if (heroStars) {
+    const STAR_COUNT = 48;
+    for (let i = 0; i < STAR_COUNT; i++) {
+      const star = document.createElement('span');
+      star.className = 'hero-star';
+      star.style.left = `${Math.random() * 100}%`;
+      star.style.top = `${Math.random() * 100}%`;
+      star.style.setProperty('--size', `${2.5 + Math.random() * 3.5}px`);
+      star.style.setProperty('--dur', `${1.8 + Math.random() * 2.4}s`);
+      star.style.setProperty('--delay', `${Math.random() * 5}s`);
+      heroStars.appendChild(star);
+    }
+  }
+
   /* ---------- Hero: galería oscura, las fotos se descubren al acercar el cursor ---------- */
   const heroSection = document.querySelector('.hero');
   const heroCursor = document.querySelector('[data-hero-cursor]');
