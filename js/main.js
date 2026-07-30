@@ -225,6 +225,41 @@
       });
     };
 
+    // Al tocar/clickear una foto cercana, se muestra esa misma imagen
+    // más grande y centrada, detrás del nombre.
+    const spotlightBig = document.querySelector('[data-hero-spotlight-big]');
+    const spotlightBigImg = document.querySelector('[data-hero-spotlight-big-img]');
+
+    const findNearestItem = (x, y) => {
+      const rect = heroSection.getBoundingClientRect();
+      let closestIndex = null;
+      let closestDist = Infinity;
+      items.forEach((el, i) => {
+        const ix = (parseFloat(el.style.left) / 100) * rect.width;
+        const iy = (parseFloat(el.style.top) / 100) * rect.height;
+        const dist = Math.hypot(x - ix, y - iy);
+        if (dist < REVEAL_RADIUS && dist < closestDist) {
+          closestDist = dist;
+          closestIndex = i;
+        }
+      });
+      return closestIndex;
+    };
+
+    if (spotlightBig && spotlightBigImg) {
+      heroSection.addEventListener('click', (e) => {
+        const rect = heroSection.getBoundingClientRect();
+        const index = findNearestItem(e.clientX - rect.left, e.clientY - rect.top);
+        if (index !== null) {
+          spotlightBigImg.src = PROJECTS[index].imagen;
+          spotlightBigImg.alt = '';
+          spotlightBig.classList.add('is-active');
+        } else {
+          spotlightBig.classList.remove('is-active');
+        }
+      });
+    }
+
     if (supportsHoverHero) {
       heroSection.addEventListener('mousemove', (e) => {
         const rect = heroSection.getBoundingClientRect();
