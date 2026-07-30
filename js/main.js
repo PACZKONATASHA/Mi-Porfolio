@@ -230,14 +230,36 @@
     } else {
       // Táctil: se revela con el dedo, sin tocar preventDefault para no
       // interferir con el scroll normal de la página.
+      const moveCursorTo = (x, y) => {
+        heroCursor.style.left = `${x}px`;
+        heroCursor.style.top = `${y}px`;
+      };
+
+      heroSection.addEventListener('touchstart', (e) => {
+        const touch = e.touches[0];
+        if (!touch) return;
+        const rect = heroSection.getBoundingClientRect();
+        const x = touch.clientX - rect.left;
+        const y = touch.clientY - rect.top;
+        moveCursorTo(x, y);
+        heroCursor.classList.add('is-active');
+        updateReveal(x, y);
+      }, { passive: true });
+
       heroSection.addEventListener('touchmove', (e) => {
         const touch = e.touches[0];
         if (!touch) return;
         const rect = heroSection.getBoundingClientRect();
-        updateReveal(touch.clientX - rect.left, touch.clientY - rect.top);
+        const x = touch.clientX - rect.left;
+        const y = touch.clientY - rect.top;
+        moveCursorTo(x, y);
+        updateReveal(x, y);
       }, { passive: true });
 
-      heroSection.addEventListener('touchend', hideAll, { passive: true });
+      heroSection.addEventListener('touchend', () => {
+        heroCursor.classList.remove('is-active');
+        hideAll();
+      }, { passive: true });
     }
   }
 

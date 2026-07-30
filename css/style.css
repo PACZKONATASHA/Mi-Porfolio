@@ -265,10 +265,6 @@ body {
   object-fit: cover;
 }
 
-@media (hover: none), (pointer: coarse) {
-  .hero-cursor { display: none; }
-}
-
 .hero-name,
 .scroll-cue {
   position: relative;
