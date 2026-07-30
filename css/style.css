@@ -322,6 +322,7 @@ body {
   inset: 0;
   z-index: 0;
   pointer-events: none;
+  transition: opacity .35s var(--ease-out-smooth);
 }
 
 .hero-gallery-item {
@@ -370,6 +371,7 @@ body {
 .scroll-cue {
   position: relative;
   z-index: 1;
+  transition: opacity .35s var(--ease-out-smooth);
 }
 
 .hero-name {

@@ -254,8 +254,10 @@
           spotlightBigImg.src = PROJECTS[index].imagen;
           spotlightBigImg.alt = '';
           spotlightBig.classList.add('is-active');
+          heroSection.classList.add('is-spotlight-active');
         } else {
           spotlightBig.classList.remove('is-active');
+          heroSection.classList.remove('is-spotlight-active');
         }
       });
     }
