@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Natasha Paczko — Diseño y desarrollo web</title>
+  <meta name="description" content="Portfolio de Natasha Paczko. Diseño y desarrollo web." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+  <noscript>
+    <style>
+      .hero-spotlight { display: none; }
+    </style>
+  </noscript>
+</head>
+<body>
+
+  <div class="page-reveal" data-reveal-curtain aria-hidden="true"></div>
+
+  <header class="header" id="top">
+    <a class="brand" href="#top">
+      <span class="brand-avatar">
+        <span class="brand-avatar-crop">
+          <img src="img/natasha-avatar.jpg" alt="" width="72" height="72" />
+        </span>
+        <span class="brand-status" aria-hidden="true"></span>
+      </span>
+      <span class="brand-name">Natasha Paczko</span>
+    </a>
+
+    <nav class="nav-desktop" aria-label="Navegación principal">
+      <a href="#top">Inicio</a>
+      <a href="#proyectos">Proyectos</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+
+    <button class="menu-btn" type="button" id="menuBtn" aria-label="Abrir menú" aria-expanded="false" aria-controls="menuMobile">
+      <span></span><span></span>
+    </button>
+
+    <nav class="nav-mobile" id="menuMobile" aria-label="Menú móvil">
+      <a href="#top">Inicio</a>
+      <a href="#proyectos">Proyectos</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <section class="hero">
+      <div class="hero-cursor" data-hero-cursor aria-hidden="true"></div>
+
+      <div class="hero-gallery" data-hero-gallery aria-hidden="true"></div>
+
+      <h1 class="hero-name"
+          data-typewriter-loop
+          data-words="Natasha Paczko,Mi portfolio,Diseño web"
+          aria-label="Natasha Paczko"
+      ><span class="hero-name-word" data-typewriter-loop-word aria-hidden="true">Natasha Paczko</span></h1>
+
+      <p class="hero-tagline">Diseñadora y desarrolladora web</p>
+
+      <a class="scroll-cue" href="#proyectos" aria-label="Ir a proyectos">
+        <span class="scroll-cue-line"></span>
+        <span class="scroll-cue-text">Scroll</span>
+      </a>
+    </section>
+
+    <section class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Golden Detailing</span><span class="marquee-dot">·</span>
+        <span>Barra de Access</span><span class="marquee-dot">·</span>
+        <span>Mala Male</span><span class="marquee-dot">·</span>
+        <span>DELoi3D</span><span class="marquee-dot">·</span>
+        <span>Golden Detailing</span><span class="marquee-dot">·</span>
+        <span>Barra de Access</span><span class="marquee-dot">·</span>
+        <span>Mala Male</span><span class="marquee-dot">·</span>
+        <span>DELoi3D</span><span class="marquee-dot">·</span>
+      </div>
+    </section>
+
+    <section class="work" id="proyectos">
+      <div class="work-head" data-reveal>
+        <div class="work-head-text">
+          <span class="eyebrow">Proyectos</span>
+          <h2 class="work-title"
+              data-typewriter-loop
+              data-words="Mis Proyectos"
+              aria-label="Mis Proyectos"
+          ><span class="work-title-word" data-typewriter-loop-word aria-hidden="true">Mis Proyectos</span></h2>
+        </div>
+        <span class="work-count"><span data-count-current>01</span> / <span data-count-total>04</span></span>
+      </div>
+
+      <div class="work-stage">
+        <div class="work-visual" data-work-visual>
+          <a class="work-visual-link" data-work-link href="#" target="_blank" rel="noopener noreferrer">
+            <img data-work-img src="" alt="" />
+          </a>
+          <span class="cursor-label" data-cursor-label>Ver en vivo</span>
+        </div>
+
+        <div class="work-info" data-work-info>
+          <span class="work-info-num" data-work-num>01</span>
+          <h2 class="work-info-name" data-work-name></h2>
+          <span class="work-info-type" data-work-type></span>
+          <p class="work-info-desc" data-work-desc></p>
+          <p class="work-info-role" data-work-role hidden></p>
+          <ul class="work-info-stack" data-work-stack hidden></ul>
+          <div class="work-info-links">
+            <a class="work-info-link" data-work-link href="#" target="_blank" rel="noopener noreferrer">
+              Ver en vivo
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+            <a class="work-info-link" data-work-github href="#" target="_blank" rel="noopener noreferrer" hidden>
+              GitHub
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-controls">
+        <button class="work-arrow" type="button" data-work-prev aria-label="Proyecto anterior">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+
+        <div class="work-names" data-work-names></div>
+
+        <button class="work-arrow" type="button" data-work-next aria-label="Siguiente proyecto">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+
+      <div class="work-progress"><div class="work-progress-bar" data-work-progress></div></div>
+    </section>
+
+  </main>
+
+  <footer class="footer" id="contacto">
+    <span class="footer-name">Natasha Paczko</span>
+    <span class="footer-copy">© <span data-year></span></span>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
