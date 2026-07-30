@@ -331,6 +331,65 @@
     }
   }
 
+  /* ---------- Stack / herramientas ---------- */
+  // Completar con las tecnologías y herramientas reales que uses. Si queda
+  // vacío, la sección permanece oculta (no se inventa contenido).
+  const TOOLS = [];
+
+  const stackSection = document.querySelector('[data-stack]');
+  const stackList = document.querySelector('[data-stack-list]');
+  if (stackSection && stackList && TOOLS.length) {
+    TOOLS.forEach(tool => {
+      const li = document.createElement('li');
+      li.textContent = tool;
+      stackList.appendChild(li);
+    });
+    stackSection.hidden = false;
+  }
+
+  /* ---------- Footer: contacto ---------- */
+  // Completar con los datos reales. Cada enlace solo aparece si su valor
+  // no está vacío (no se inventa contenido de contacto).
+  const CONTACT = {
+    email: '',      // ej: 'natasha@ejemplo.com'
+    linkedin: '',   // ej: 'https://www.linkedin.com/in/...'
+    github: '',     // ej: 'https://github.com/...'
+    cv: '',         // ej: 'files/CV-Natasha-Paczko.pdf'
+  };
+
+  const footerLinks = document.querySelector('[data-footer-links]');
+  if (footerLinks) {
+    if (CONTACT.email) {
+      const a = document.createElement('a');
+      a.href = `mailto:${CONTACT.email}`;
+      a.textContent = 'Email';
+      footerLinks.appendChild(a);
+    }
+    if (CONTACT.linkedin) {
+      const a = document.createElement('a');
+      a.href = CONTACT.linkedin;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      a.textContent = 'LinkedIn';
+      footerLinks.appendChild(a);
+    }
+    if (CONTACT.github) {
+      const a = document.createElement('a');
+      a.href = CONTACT.github;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      a.textContent = 'GitHub';
+      footerLinks.appendChild(a);
+    }
+    if (CONTACT.cv) {
+      const a = document.createElement('a');
+      a.href = CONTACT.cv;
+      a.download = '';
+      a.textContent = 'CV';
+      footerLinks.appendChild(a);
+    }
+  }
+
   /* ---------- Footer year ---------- */
   const yearEl = document.querySelector('[data-year]');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
