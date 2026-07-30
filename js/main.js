@@ -161,9 +161,11 @@
   const heroGallery = document.querySelector('[data-hero-gallery]');
   const supportsHoverHero = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-  if (heroSection && heroCursor && heroGallery && supportsHoverHero) {
-    const REVEAL_RADIUS = 130;   // opacidad máxima dentro de este radio (px)
-    const FADE_RADIUS = 320;     // se apaga por completo a partir de este radio (px)
+  if (heroSection && heroCursor && heroGallery) {
+    // En mouse el radio es más ajustado (apunta con precisión); en touch se
+    // agranda porque el dedo tapa el punto exacto y es menos preciso.
+    const REVEAL_RADIUS = supportsHoverHero ? 130 : 170;
+    const FADE_RADIUS = supportsHoverHero ? 320 : 380;
     const GOLDEN_ANGLE = 137.5;
 
     const items = PROJECTS.map((project, i) => {
@@ -200,26 +202,43 @@
       });
     };
 
-    heroSection.addEventListener('mousemove', (e) => {
-      const rect = heroSection.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      heroCursor.style.left = `${x}px`;
-      heroCursor.style.top = `${y}px`;
-      updateReveal(x, y);
-    });
-
-    heroSection.addEventListener('mouseenter', () => {
-      heroCursor.classList.add('is-active');
-    });
-
-    heroSection.addEventListener('mouseleave', () => {
-      heroCursor.classList.remove('is-active');
+    const hideAll = () => {
       items.forEach((el) => {
         el.style.opacity = 0;
         el.classList.remove('is-near');
       });
-    });
+    };
+
+    if (supportsHoverHero) {
+      heroSection.addEventListener('mousemove', (e) => {
+        const rect = heroSection.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        heroCursor.style.left = `${x}px`;
+        heroCursor.style.top = `${y}px`;
+        updateReveal(x, y);
+      });
+
+      heroSection.addEventListener('mouseenter', () => {
+        heroCursor.classList.add('is-active');
+      });
+
+      heroSection.addEventListener('mouseleave', () => {
+        heroCursor.classList.remove('is-active');
+        hideAll();
+      });
+    } else {
+      // Táctil: se revela con el dedo, sin tocar preventDefault para no
+      // interferir con el scroll normal de la página.
+      heroSection.addEventListener('touchmove', (e) => {
+        const touch = e.touches[0];
+        if (!touch) return;
+        const rect = heroSection.getBoundingClientRect();
+        updateReveal(touch.clientX - rect.left, touch.clientY - rect.top);
+      }, { passive: true });
+
+      heroSection.addEventListener('touchend', hideAll, { passive: true });
+    }
   }
 
   const workSection = document.getElementById('proyectos');

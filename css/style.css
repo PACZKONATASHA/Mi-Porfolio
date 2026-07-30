@@ -266,7 +266,6 @@ body {
 }
 
 @media (hover: none), (pointer: coarse) {
-  .hero-gallery,
   .hero-cursor { display: none; }
 }
 
