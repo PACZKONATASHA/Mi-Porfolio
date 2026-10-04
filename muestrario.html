@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Muestrario de estilos</title>
+  <meta name="description" content="Muestrario de tipografías y animaciones para elegir el estilo del portfolio." />
+  <meta name="robots" content="noindex" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+
+  <!-- Google Fonts: interfaz (Poppins + Manrope, las del portfolio) y combinaciones Precisa y Cercana -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&family=Manrope:wght@400;500;600;700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- Fontshare (gratis para uso comercial): combinaciones Audaz y Editorial. Un link por familia porque la API no combina bien varias. -->
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600&display=swap" rel="stylesheet">
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+  <link href="https://api.fontshare.com/v2/css?f[]=zodiak@400,401&display=swap" rel="stylesheet">
+  <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ---------- Reset ---------- */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body, h1, h2, h3, p, figure, dl, dd { margin: 0; padding: 0; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; }
+    button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+
+    /* ---------- Tokens (los mismos del portfolio) ---------- */
+    :root {
+      --bg:          #0B0B0C;
+      --bg-elevated: #111113;
+      --ink:         #F5F3EF;
+      --ink-soft:    rgba(245, 243, 239, 0.78);
+      --ink-muted:   #9A9A96;
+      --line:        rgba(245, 243, 239, 0.12);
+      --line-strong: rgba(245, 243, 239, 0.22);
+
+      --font-display: 'Poppins', system-ui, sans-serif;
+      --font-text:    'Manrope', system-ui, -apple-system, sans-serif;
+
+      --ease-out-soft: cubic-bezier(.16, 1, .3, 1);
+      --ease-scroll:   cubic-bezier(.76, 0, .24, 1);
+      --ease-spring:   cubic-bezier(.34, 1.56, .64, 1);
+
+      /* Radios: escenarios 14px, imágenes e inputs 8px, botones en píldora */
+      --radius-stage: 14px;
+      --radius-small: 8px;
+
+      --gutter: clamp(1rem, 5vw, 4rem);
+    }
+
+    html { color-scheme: dark; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-text);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 7.5rem; /* espacio para la barra de elección */
+      overflow-x: hidden;
+    }
+
+    :focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+
+    .visually-hidden {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+    }
+
+    .wrap { max-width: 1240px; margin: 0 auto; padding-inline: var(--gutter); }
+
+    /* ---------- Botones ---------- */
+    .pick,
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      min-height: 42px;
+      padding: .55rem 1.15rem;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      font-size: .875rem;
+      font-weight: 600;
+      white-space: nowrap;
+      transition: background-color .25s, color .25s, border-color .25s, transform .15s;
+    }
+    .pick:hover,
+    .btn-ghost:hover:not(:disabled) { border-color: var(--ink); }
+    .pick:active,
+    .btn-ghost:active:not(:disabled) { transform: scale(.97); }
+    .pick[aria-pressed="true"] {
+      background: var(--ink);
+      border-color: var(--ink);
+      color: var(--bg);
+    }
+    .pick[aria-pressed="true"]::before { content: "\2713"; font-weight: 700; }
+    .btn-ghost:disabled { opacity: .4; cursor: not-allowed; }
+
+    /* ---------- Encabezado ---------- */
+    .top {
+      display: grid;
+      gap: 2rem;
+      padding-top: clamp(1.5rem, 4vw, 2.5rem);
+      padding-bottom: clamp(3rem, 7vw, 5rem);
+    }
+    .back {
+      justify-self: start;
+      font-size: .875rem;
+      color: var(--ink-muted);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .back:hover { color: var(--ink); }
+
+    .top-main { display: grid; gap: 2rem; align-items: end; }
+    @media (min-width: 900px) {
+      .top-main { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 4rem; }
+    }
+
+    .top h1 {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: clamp(2.75rem, 8vw, 5.5rem);
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+    .top-intro {
+      margin-top: 1.25rem;
+      max-width: 50ch;
+      color: var(--ink-muted);
+      font-size: clamp(1rem, 1.4vw, 1.125rem);
+    }
+
+    .field { display: grid; gap: .5rem; }
+    .field label { font-size: .875rem; font-weight: 600; }
+    .field input {
+      width: 100%;
+      padding: .85rem 1rem;
+      background: var(--bg-elevated);
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius-small);
+      color: var(--ink);
+      font: inherit;
+      font-size: 1rem;
+    }
+    .field input:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+    .field-help { font-size: .8125rem; color: var(--ink-muted); }
+
+    /* ---------- Secciones ---------- */
+    .block {
+      padding-block: clamp(3.5rem, 8vw, 6rem);
+      border-top: 1px solid var(--line);
+    }
+    .block-head h2 {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: clamp(1.9rem, 4.5vw, 3.25rem);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+    }
+    .block-head p {
+      margin-top: .9rem;
+      max-width: 60ch;
+      color: var(--ink-muted);
+    }
+
+    /* ---------- Tipografías ---------- */
+    .specimens { margin-top: clamp(2rem, 5vw, 3.5rem); }
+
+    .specimen {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 1.75rem;
+      padding-block: clamp(2.25rem, 5vw, 3.5rem);
+      border-top: 1px solid var(--line);
+    }
+    @media (min-width: 900px) {
+      .specimen {
+        grid-template-columns: 270px minmax(0, 1fr);
+        gap: clamp(2.5rem, 5vw, 5rem);
+      }
+    }
+
+    .spec-meta h3 {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+    .spec-fonts {
+      margin-top: .6rem;
+      display: grid;
+      gap: .15rem;
+      font-size: .875rem;
+    }
+    .spec-fonts dt { display: inline; color: var(--ink-muted); }
+    .spec-fonts dd { display: inline; font-weight: 600; }
+    .spec-desc {
+      margin-top: .9rem;
+      max-width: 38ch;
+      font-size: .9375rem;
+      color: var(--ink-muted);
+    }
+    .spec-meta .pick { margin-top: 1.5rem; }
+
+    /* Muestra: usa --f-display / --f-text de cada combinación */
+    .s-title {
+      font-family: var(--f-display);
+      font-size: clamp(2.5rem, 7vw, 5.5rem);
+      line-height: 1.04;
+      overflow-wrap: anywhere;
+    }
+    .s-sub {
+      margin-top: .75rem;
+      font-family: var(--f-text);
+      font-size: clamp(1.05rem, 1.8vw, 1.35rem);
+      color: var(--ink-muted);
+    }
+    .s-project {
+      margin-top: clamp(1.75rem, 4vw, 2.75rem);
+      display: grid;
+      gap: .4rem;
+      max-width: 46ch;
+      font-family: var(--f-text);
+    }
+    .s-label {
+      font-size: .75rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+    }
+    .s-name {
+      font-family: var(--f-display);
+      font-size: clamp(1.5rem, 2.6vw, 2rem);
+      line-height: 1.15;
+    }
+    .s-body { font-size: 1rem; line-height: 1.6; color: var(--ink-soft); }
+    .s-cta {
+      justify-self: start;
+      margin-top: .6rem;
+      padding-bottom: .15rem;
+      border-bottom: 1px solid var(--line-strong);
+      font-size: .9375rem;
+    }
+
+    /* Precisa: Geist + Geist Mono */
+    [data-font="precisa"] {
+      --f-display: 'Geist', system-ui, sans-serif;
+      --f-text:    'Geist', system-ui, sans-serif;
+      --f-mono:    'Geist Mono', ui-monospace, monospace;
+    }
+    [data-font="precisa"] .s-title { font-weight: 600; letter-spacing: -0.055em; }
+    [data-font="precisa"] .s-name  { font-weight: 600; letter-spacing: -0.035em; }
+    [data-font="precisa"] .s-sub,
+    [data-font="precisa"] .s-label,
+    [data-font="precisa"] .s-cta   { font-family: var(--f-mono); text-transform: uppercase; }
+    [data-font="precisa"] .s-sub   { font-size: clamp(.9rem, 1.4vw, 1.05rem); letter-spacing: .04em; }
+    [data-font="precisa"] .s-label { letter-spacing: .06em; }
+    [data-font="precisa"] .s-cta   { font-size: .8125rem; letter-spacing: .04em; }
+
+    /* Audaz: Clash Display + Satoshi */
+    [data-font="audaz"] {
+      --f-display: 'Clash Display', system-ui, sans-serif;
+      --f-text:    'Satoshi', system-ui, sans-serif;
+    }
+    [data-font="audaz"] .s-title { font-weight: 600; letter-spacing: -0.03em; line-height: .98; }
+    [data-font="audaz"] .s-name  { font-weight: 600; letter-spacing: -0.01em; }
+    [data-font="audaz"] .s-label { font-weight: 700; }
+    [data-font="audaz"] .s-cta   { font-weight: 700; }
+
+    /* Editorial: Zodiak + General Sans */
+    [data-font="editorial"] {
+      --f-display: 'Zodiak', Georgia, serif;
+      --f-text:    'General Sans', system-ui, sans-serif;
+    }
+    [data-font="editorial"] .s-title { font-weight: 400; letter-spacing: -0.03em; line-height: 1.1; padding-bottom: .06em; }
+    [data-font="editorial"] .s-title em { font-style: italic; }
+    [data-font="editorial"] .s-name  { font-weight: 400; letter-spacing: -0.01em; }
+    [data-font="editorial"] .s-label { font-weight: 500; }
+    [data-font="editorial"] .s-cta   { font-weight: 500; }
+
+    /* Cercana: Bricolage Grotesque + Figtree */
+    [data-font="cercana"] {
+      --f-display: 'Bricolage Grotesque', system-ui, sans-serif;
+      --f-text:    'Figtree', system-ui, sans-serif;
+    }
+    [data-font="cercana"] .s-title { font-weight: 560; letter-spacing: -0.035em; line-height: 1; font-optical-sizing: auto; }
+    [data-font="cercana"] .s-name  { font-weight: 600; letter-spacing: -0.02em; }
+    [data-font="cercana"] .s-label { font-weight: 600; }
+    [data-font="cercana"] .s-cta   { font-weight: 600; }
+
+    /* ---------- Animaciones ---------- */
+    .notice {
+      margin-top: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1rem 1.5rem;
+      padding: 1.1rem 1.25rem;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius-small);
+      font-size: .9375rem;
+    }
+    .notice[hidden] { display: none; }
+    .notice p { flex: 1 1 32ch; }
+
+    .anims {
+      margin-top: clamp(2rem, 5vw, 3.5rem);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: clamp(2.75rem, 5vw, 3.5rem) clamp(1.5rem, 3vw, 2.5rem);
+    }
+    @media (min-width: 820px) {
+      .anims { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    .anim-stage {
+      position: relative;
+      min-height: 300px;
+      display: grid;
+      place-items: center;
+      padding: 1.75rem;
+      background: radial-gradient(120% 90% at 50% 0%, #19191c 0%, var(--bg-elevated) 62%);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-stage);
+      overflow: hidden;
+    }
+    .anim-meta { margin-top: 1.25rem; }
+    .anim-meta h3 {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 1.375rem;
+      letter-spacing: -0.02em;
+    }
+    .anim-use { margin-top: .3rem; font-size: .9375rem; font-weight: 600; }
+    .anim-desc { margin-top: .45rem; max-width: 48ch; font-size: .9375rem; color: var(--ink-muted); }
+    .anim-actions { margin-top: 1.1rem; display: flex; flex-wrap: wrap; gap: .6rem; }
+
+    /* Texto de demostración (con la tipografía actual del portfolio) */
+    .demo-text { width: 100%; }
+    .demo-title {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: clamp(2rem, 4.2vw, 3.1rem);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      overflow-wrap: anywhere;
+    }
+    .demo-sub {
+      margin-top: .6rem;
+      font-size: clamp(.95rem, 1.4vw, 1.1rem);
+      line-height: 1.35;
+      color: var(--ink-muted);
+    }
+
+    /* 1. Subida con máscara */
+    .m-line {
+      display: inline-block;
+      overflow: hidden;
+      vertical-align: bottom;
+      padding-bottom: .12em;
+      margin-bottom: -.12em;
+    }
+    .m-word { display: inline-block; transform-origin: 0 100%; }
+    @keyframes m-rise {
+      from { transform: translateY(125%) rotate(5deg); }
+      to   { transform: translateY(0) rotate(0); }
+    }
+    .motion-ok [data-anim="mask"].is-armed .m-word { transform: translateY(125%) rotate(5deg); }
+    .motion-ok [data-anim="mask"].is-playing .m-word {
+      animation: m-rise .95s var(--ease-out-soft) both;
+      animation-delay: calc(var(--i) * 85ms);
+    }
+
+    /* 2. Decodificado */
+    .scr-noise { color: var(--ink-muted); }
+
+    /* 3. Cortina */
+    .curtain { width: min(100%, 380px); }
+    .curtain-frame {
+      aspect-ratio: 16 / 10;
+      border-radius: var(--radius-small);
+      overflow: hidden;
+      background: #1b1b1e;
+    }
+    .curtain-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+    }
+    .curtain-cap {
+      margin-top: .85rem;
+      overflow: hidden;
+      padding-bottom: .1em;
+      font-family: var(--font-display);
+      font-weight: 500;
+    }
+    .curtain-cap span { display: inline-block; transform-origin: 0 100%; }
+    @keyframes c-wipe {
+      from { clip-path: inset(100% 0 0 0); }
+      to   { clip-path: inset(0 0 0 0); }
+    }
+    @keyframes c-zoom {
+      from { transform: scale(1.3); }
+      to   { transform: scale(1); }
+    }
+    .motion-ok [data-anim="curtain"].is-armed .curtain-frame { clip-path: inset(100% 0 0 0); }
+    .motion-ok [data-anim="curtain"].is-armed .curtain-frame img { transform: scale(1.3); }
+    .motion-ok [data-anim="curtain"].is-armed .curtain-cap span { transform: translateY(125%) rotate(5deg); }
+    .motion-ok [data-anim="curtain"].is-playing .curtain-frame { animation: c-wipe 1.1s var(--ease-scroll) both; }
+    .motion-ok [data-anim="curtain"].is-playing .curtain-frame img { animation: c-zoom 1.5s var(--ease-out-soft) both; }
+    .motion-ok [data-anim="curtain"].is-playing .curtain-cap span { animation: m-rise .8s var(--ease-out-soft) .7s both; }
+
+    /* 4. Botón magnético */
+    .magnet-area {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      touch-action: none; /* en celular el dedo mueve el botón en vez de la página */
+    }
+    .magnet-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.1rem 2.1rem;
+      border-radius: 999px;
+      background: var(--ink);
+      color: var(--bg);
+      font-family: var(--font-display);
+      font-weight: 500;
+      white-space: nowrap;
+      transition: transform .75s var(--ease-spring);
+    }
+    .magnet-label { display: inline-block; transition: transform .75s var(--ease-spring); }
+    .magnet-area.is-tracking .magnet-btn,
+    .magnet-area.is-tracking .magnet-label { transition-duration: .2s; transition-timing-function: ease-out; }
+    .magnet-ghost {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 18px;
+      height: 18px;
+      margin: -9px 0 0 -9px;
+      border: 1.5px solid var(--ink);
+      border-radius: 50%;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .magnet-hint {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 1rem;
+      text-align: center;
+      font-size: .8125rem;
+      color: var(--ink-muted);
+      pointer-events: none;
+    }
+    .hint-touch { display: none; }
+    @media (hover: none) {
+      .hint-mouse { display: none; }
+      .hint-touch { display: inline; }
+    }
+
+    /* ---------- Barra de elección ---------- */
+    .tray {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 10;
+      background: rgba(11, 11, 12, .88);
+      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(14px);
+      border-top: 1px solid var(--line);
+    }
+    .tray-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding-top: .85rem;
+      padding-bottom: calc(.85rem + env(safe-area-inset-bottom));
+    }
+    .tray-text { min-width: 0; font-size: .9375rem; }
+    .tray-text strong {
+      display: block;
+      font-size: .8125rem;
+      font-weight: 600;
+      color: var(--ink-muted);
+    }
+    .tray-summary {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .copy-btn {
+      flex-shrink: 0;
+      min-height: 44px;
+      padding: .7rem 1.3rem;
+      border: 1px solid var(--ink);
+      border-radius: 999px;
+      background: var(--ink);
+      color: var(--bg);
+      font-size: .875rem;
+      font-weight: 700;
+      white-space: nowrap;
+      transition: transform .15s, background-color .25s, color .25s;
+    }
+    .copy-btn:active:not(:disabled) { transform: scale(.97); }
+    .copy-btn:disabled {
+      background: transparent;
+      border-color: var(--line-strong);
+      color: var(--ink-muted);
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="wrap top">
+    <a class="back" href="index.html">Volver al portfolio</a>
+
+    <div class="top-main">
+      <div>
+        <h1>Muestrario</h1>
+        <p class="top-intro">Marcá con Me gusta las tipografías y animaciones que prefieras. Tu elección se arma abajo para que la copies y la pegues en el chat.</p>
+      </div>
+
+      <div class="field">
+        <label for="sampleText">Texto de prueba</label>
+        <input id="sampleText" type="text" value="Natasha Paczko" maxlength="40" autocomplete="off" spellcheck="false" aria-describedby="sampleTextHelp" />
+        <span class="field-help" id="sampleTextHelp">Cambia el título de todas las muestras.</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ---------- Tipografías ---------- -->
+    <section class="wrap block" aria-labelledby="tipografias">
+      <div class="block-head">
+        <h2 id="tipografias">Tipografías</h2>
+        <p>Cada combinación tiene una fuente para títulos y otra para textos. Hoy tu portfolio usa Poppins y Manrope.</p>
+      </div>
+
+      <div class="specimens">
+
+        <article class="specimen" data-font="precisa"
+                 data-pick-id="tipo-precisa" data-pick-group="tipografia"
+                 data-pick-label="Precisa" data-pick-detail="Geist + Geist Mono">
+          <div class="spec-meta">
+            <h3>Precisa</h3>
+            <dl class="spec-fonts">
+              <div><dt>Títulos y textos: </dt><dd>Geist</dd></div>
+              <div><dt>Detalles: </dt><dd>Geist Mono</dd></div>
+            </dl>
+            <p class="spec-desc">Limpia y técnica. Los detalles en monoespaciada recuerdan al código y suman tu perfil de desarrolladora.</p>
+            <button class="pick" type="button" data-pick aria-pressed="false" aria-label="Me gusta: Precisa">Me gusta</button>
+          </div>
+          <div class="spec-sample">
+            <p class="s-title" data-sample-title>Natasha Paczko</p>
+            <p class="s-sub">Diseñadora y desarrolladora web</p>
+            <div class="s-project">
+              <span class="s-label">Landing Page simple</span>
+              <p class="s-name">Golden Detailing</p>
+              <p class="s-body">Muestra un servicio, producto o emprendimiento de forma clara y directa, con botón directo a WhatsApp.</p>
+              <span class="s-cta">Ver en vivo</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="specimen" data-font="audaz"
+                 data-pick-id="tipo-audaz" data-pick-group="tipografia"
+                 data-pick-label="Audaz" data-pick-detail="Clash Display + Satoshi">
+          <div class="spec-meta">
+            <h3>Audaz</h3>
+            <dl class="spec-fonts">
+              <div><dt>Títulos: </dt><dd>Clash Display</dd></div>
+              <div><dt>Textos: </dt><dd>Satoshi</dd></div>
+            </dl>
+            <p class="spec-desc">Títulos con mucha presencia y textos muy fáciles de leer. Es la opción más llamativa.</p>
+            <button class="pick" type="button" data-pick aria-pressed="false" aria-label="Me gusta: Audaz">Me gusta</button>
+          </div>
+          <div class="spec-sample">
+            <p class="s-title" data-sample-title>Natasha Paczko</p>
+            <p class="s-sub">Diseñadora y desarrolladora web</p>
+            <div class="s-project">
+              <span class="s-label">Landing Page simple</span>
+              <p class="s-name">Golden Detailing</p>
+              <p class="s-body">Muestra un servicio, producto o emprendimiento de forma clara y directa, con botón directo a WhatsApp.</p>
+              <span class="s-cta">Ver en vivo</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="specimen" data-font="editorial"
+                 data-pick-id="tipo-editorial" data-pick-group="tipografia"
+                 data-pick-label="Editorial" data-pick-detail="Zodiak + General Sans">
+          <div class="spec-meta">
+            <h3>Editorial</h3>
+            <dl class="spec-fonts">
+              <div><dt>Títulos: </dt><dd>Zodiak</dd></div>
+              <div><dt>Textos: </dt><dd>General Sans</dd></div>
+            </dl>
+            <p class="spec-desc">Títulos con serifa, como en una revista. Elegante y cuidada, con la última palabra en cursiva.</p>
+            <button class="pick" type="button" data-pick aria-pressed="false" aria-label="Me gusta: Editorial">Me gusta</button>
+          </div>
+          <div class="spec-sample">
+            <p class="s-title" data-sample-title data-italic-last>Natasha <em>Paczko</em></p>
+            <p class="s-sub">Diseñadora y desarrolladora web</p>
+            <div class="s-project">
+              <span class="s-label">Landing Page simple</span>
+              <p class="s-name">Golden Detailing</p>
+              <p class="s-body">Muestra un servicio, producto o emprendimiento de forma clara y directa, con botón directo a WhatsApp.</p>
+              <span class="s-cta">Ver en vivo</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="specimen" data-font="cercana"
+                 data-pick-id="tipo-cercana" data-pick-group="tipografia"
+                 data-pick-label="Cercana" data-pick-detail="Bricolage Grotesque + Figtree">
+          <div class="spec-meta">
+            <h3>Cercana</h3>
+            <dl class="spec-fonts">
+              <div><dt>Títulos: </dt><dd>Bricolage Grotesque</dd></div>
+              <div><dt>Textos: </dt><dd>Figtree</dd></div>
+            </dl>
+            <p class="spec-desc">Letras con personalidad y un tono amigable. Se siente cálida sin perder prolijidad.</p>
+            <button class="pick" type="button" data-pick aria-pressed="false" aria-label="Me gusta: Cercana">Me gusta</button>
+          </div>
+          <div class="spec-sample">
+            <p class="s-title" data-sample-title>Natasha Paczko</p>
+            <p class="s-sub">Diseñadora y desarrolladora web</p>
+            <div class="s-project">
+              <span class="s-label">Landing Page simple</span>
+              <p class="s-name">Golden Detailing</p>
+              <p class="s-body">Muestra un servicio, producto o emprendimiento de forma clara y directa, con botón directo a WhatsApp.</p>
+              <span class="s-cta">Ver en vivo</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ---------- Animaciones ---------- -->
+    <section class="wrap block" aria-labelledby="animaciones">
+      <div class="block-head">
+        <h2 id="animaciones">Animaciones</h2>
+        <p>Se reproducen cuando aparecen en pantalla. Todas usan tu tipografía actual, así comparás solo el movimiento.</p>
+      </div>
+
+      <div class="notice" data-motion-notice hidden>
+        <p>Tu dispositivo tiene activada la opción de reducir movimiento, por eso las animaciones están quietas.</p>
+        <button class="btn-ghost" type="button" data-motion-enable>Mostrarlas igual</button>
+      </div>
+
+      <div class="anims">
+
+        <article class="anim" data-anim="mask"
+                 data-pick-id="anim-mascara" data-pick-group="animacion"
+                 data-pick-label="Subida con máscara">
+          <div class="anim-stage" aria-hidden="true">
+            <div class="demo-text">
+              <p class="demo-title" data-mask-title>Natasha Paczko</p>
+              <p class="demo-sub" data-mask-sub>Diseñadora y desarrolladora web</p>
+            </div>
+          </div>
+          <div class="anim-meta">
+            <h3>Subida con máscara</h3>
+            <p class="anim-use">Ideal para el nombre del hero y los títulos de sección.</p>
+            <p class="anim-desc">Cada palabra sube desde atrás de una línea invisible, una tras otra. Es sobria y le da peso al título.</p>
+            <div class="anim-actions">
+              <button class="btn-ghost" type="button" data-replay>Repetir</button>
+              <button class="pick" type="button" data-pick aria-pressed="false" aria-label="Me gusta: Subida con máscara">Me gusta</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="anim" data-anim="scramble"
+                 data-pick-id="anim-decodificado" data-pick-group="animacion"
+                 data-pick-label="Decodificado">
+          <div class="anim-stage" aria-hidden="true">
+            <div class="demo-text">
+              <p class="demo-title" data-scramble-title>Natasha Paczko</p>
+              <p class="demo-sub" data-scramble-sub>Diseñadora y desarrolladora web</p>
+            </div>
+          </div>
+          <div class="anim-meta">
+            <h3>Decodificado</h3>
+            <p class="anim-use">Ideal para títulos cortos y etiquetas.</p>
+            <p class="anim-desc">Las letras cambian al azar hasta formar el texto, como si se descifrara. Le suma un guiño a tu lado de programadora.</p>
+            <div class="anim-actions">
+              <button class="btn-ghost" type="button" data-replay>Repetir</button>
+              <button class="pick" type="button" data-pick aria-pressed="false" aria-label="Me gusta: Decodificado">Me gusta</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="anim" data-anim="curtain"
+                 data-pick-id="anim-cortina" data-pick-group="animacion"
+                 data-pick-label="Cortina">
+          <div class="anim-stage" aria-hidden="true">
+            <figure class="curtain">
+              <div class="curtain-frame">
+                <img data-curtain-img src="img/golden-detailing.png" alt="" decoding="async" />
+              </div>
+              <figcaption class="curtain-cap"><span data-curtain-cap>Golden Detailing</span></figcaption>
+            </figure>
+          </div>
+          <div class="anim-meta">
+            <h3>Cortina</h3>
+            <p class="anim-use">Ideal para las imágenes de tus proyectos.</p>
+            <p class="anim-desc">La imagen se descubre de abajo hacia arriba mientras el zoom se acomoda. Cada vez que tocás Repetir muestra otro de tus proyectos.</p>
+            <div class="anim-actions">
+              <button class="btn-ghost" type="button" data-replay>Repetir</button>
+              <button class="pick" type="button" data-pick aria-pressed="false" aria-label="Me gusta: Cortina">Me gusta</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="anim" data-anim="magnet"
+                 data-pick-id="anim-magnetico" data-pick-group="animacion"
+                 data-pick-label="Botón magnético">
+          <div class="anim-stage" aria-hidden="true">
+            <div class="magnet-area" data-magnet-area>
+              <span class="magnet-ghost" data-magnet-ghost></span>
+              <span class="magnet-btn" data-magnet-btn><span class="magnet-label" data-magnet-label>Ver en vivo</span></span>
+            </div>
+            <p class="magnet-hint">
+              <span class="hint-mouse">Acercá el mouse al botón</span>
+              <span class="hint-touch">Deslizá el dedo por el recuadro</span>
+            </p>
+          </div>
+          <div class="anim-meta">
+            <h3>Botón magnético</h3>
+            <p class="anim-use">Ideal para botones como Ver en vivo o Contacto.</p>
+            <p class="anim-desc">El botón se estira hacia el cursor cuando pasás cerca y vuelve a su lugar con un pequeño rebote. Repetir muestra una demostración automática.</p>
+            <div class="anim-actions">
+              <button class="btn-ghost" type="button" data-replay>Repetir</button>
+              <button class="pick" type="button" data-pick aria-pressed="false" aria-label="Me gusta: Botón magnético">Me gusta</button>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ---------- Barra de elección ---------- -->
+  <div class="tray" role="region" aria-label="Tu elección">
+    <div class="wrap tray-inner">
+      <p class="tray-text">
+        <strong>Tu elección</strong>
+        <span class="tray-summary" data-tray-summary>Todavía no marcaste nada.</span>
+      </p>
+      <button class="copy-btn" type="button" data-copy disabled>Copiar elección</button>
+    </div>
+    <p class="visually-hidden" aria-live="polite" data-copy-status></p>
+  </div>
+
+  <script>
+  (() => {
+    'use strict';
+
+    const root = document.documentElement;
+    const reduceQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let motionOk = !reduceQuery.matches;
+
+    const DEFAULT_TEXT = 'Natasha Paczko';
+    const PROJECTS = [
+      { name: 'Golden Detailing', img: 'img/golden-detailing.png' },
+      { name: 'Barra de Access',  img: 'img/barra-de-access.png' },
+      { name: 'Mala Male',        img: 'img/mala-male.png' },
+      { name: 'DELoi3D',          img: 'img/deloi3d.png' },
+    ];
+
+    const $  = (sel, ctx = document) => ctx.querySelector(sel);
+    const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
+
+    /* ---------- Reiniciar una animación CSS ---------- */
+    const restart = (card) => {
+      card.classList.remove('is-armed', 'is-playing');
+      void card.offsetWidth; // fuerza reflow para que la animación vuelva a empezar
+      card.classList.add('is-playing');
+    };
+
+    /* ---------- 1. Subida con máscara ---------- */
+    const maskCard  = $('[data-anim="mask"]');
+    const maskTitle = $('[data-mask-title]', maskCard);
+    const maskSub   = $('[data-mask-sub]', maskCard);
+    const MASK_SUB_TEXT = maskSub.textContent;
+
+    const buildMask = (text) => {
+      let i = 0;
+      const fill = (el, value) => {
+        el.replaceChildren();
+        value.split(/\s+/).filter(Boolean).forEach((word, n) => {
+          if (n > 0) el.append(' ');
+          const line = document.createElement('span');
+          line.className = 'm-line';
+          const w = document.createElement('span');
+          w.className = 'm-word';
+          w.style.setProperty('--i', i++);
+          w.textContent = word;
+          line.append(w);
+          el.append(line);
+        });
+      };
+      fill(maskTitle, text);
+      fill(maskSub, MASK_SUB_TEXT);
+    };
+
+    /* ---------- 2. Decodificado ---------- */
+    const scrCard  = $('[data-anim="scramble"]');
+    const scrTitle = $('[data-scramble-title]', scrCard);
+    const scrSub   = $('[data-scramble-sub]', scrCard);
+    const GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%&*+=/<>';
+    const randomGlyph = () => GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
+
+    const scrambleTo = (el, text, { duration = 1100, delay = 0 } = {}) => {
+      const token = (el._scrToken = (el._scrToken || 0) + 1);
+      const chars = [...text];
+      const total = chars.length;
+      const done = document.createTextNode('');
+      const noise = document.createElement('span');
+      noise.className = 'scr-noise';
+      el.replaceChildren(done, noise);
+
+      let start = null;
+      let lastNoise = -Infinity;
+      let lastRevealed = -1;
+
+      const step = (t) => {
+        if (el._scrToken !== token) return; // otra animación tomó el control
+        if (start === null) start = t + delay;
+        const progress = Math.max(0, (t - start) / duration);
+        const revealed = Math.min(total, Math.floor(progress * total));
+
+        if (revealed !== lastRevealed || t - lastNoise > 55) {
+          done.data = chars.slice(0, revealed).join('');
+          noise.textContent = chars.slice(revealed)
+            .map(c => (c === ' ' ? ' ' : randomGlyph())).join('');
+          lastNoise = t;
+          lastRevealed = revealed;
+        }
+
+        if (revealed < total) requestAnimationFrame(step);
+        else el.textContent = text;
+      };
+      requestAnimationFrame(step);
+    };
+
+    const setScrambleStatic = (el, text) => {
+      el._scrToken = (el._scrToken || 0) + 1;
+      el.textContent = text;
+    };
+
+    /* ---------- 3. Cortina ---------- */
+    const curtainCard = $('[data-anim="curtain"]');
+    const curtainImg  = $('[data-curtain-img]', curtainCard);
+    const curtainCap  = $('[data-curtain-cap]', curtainCard);
+    let curtainIndex = 0;
+
+    // Precarga el resto de las imágenes para que la cortina no espere la descarga
+    PROJECTS.slice(1).forEach(p => { const img = new Image(); img.src = p.img; });
+
+    const playCurtain = (advance) => {
+      if (advance) {
+        curtainCard.classList.remove('is-playing');
+        curtainCard.classList.add('is-armed');
+        curtainIndex = (curtainIndex + 1) % PROJECTS.length;
+        curtainImg.src = PROJECTS[curtainIndex].img;
+        curtainCap.textContent = PROJECTS[curtainIndex].name;
+      }
+      const ready = curtainImg.decode ? curtainImg.decode().catch(() => {}) : Promise.resolve();
+      ready.then(() => restart(curtainCard));
+    };
+
+    /* ---------- 4. Botón magnético ---------- */
+    const magnetCard  = $('[data-anim="magnet"]');
+    const magnetArea  = $('[data-magnet-area]', magnetCard);
+    const magnetBtn   = $('[data-magnet-btn]', magnetCard);
+    const magnetLabel = $('[data-magnet-label]', magnetCard);
+    const magnetGhost = $('[data-magnet-ghost]', magnetCard);
+    const PULL_BTN = 0.32;
+    const PULL_LABEL = 0.14;
+    const MAX_PULL = 56;
+    let magnetFrame = 0;
+    let magnetEvent = null;
+    let magnetDemo = [];
+
+    const clamp = (v, max) => Math.max(-max, Math.min(max, v));
+
+    const moveMagnet = (dx, dy) => {
+      magnetBtn.style.transform = `translate(${clamp(dx * PULL_BTN, MAX_PULL)}px, ${clamp(dy * PULL_BTN, MAX_PULL)}px)`;
+      magnetLabel.style.transform = `translate(${clamp(dx * PULL_LABEL, MAX_PULL / 2)}px, ${clamp(dy * PULL_LABEL, MAX_PULL / 2)}px)`;
+    };
+
+    const resetMagnet = () => {
+      cancelAnimationFrame(magnetFrame);
+      magnetFrame = 0;
+      magnetArea.classList.remove('is-tracking');
+      magnetBtn.style.transform = '';
+      magnetLabel.style.transform = '';
+    };
+
+    const applyMagnet = () => {
+      magnetFrame = 0;
+      if (!magnetEvent) return;
+      // Se mide desde el centro del recuadro (posición de reposo), no desde el botón ya desplazado
+      const r = magnetArea.getBoundingClientRect();
+      const dx = magnetEvent.clientX - (r.left + r.width / 2);
+      const dy = magnetEvent.clientY - (r.top + r.height / 2);
+      const radius = Math.min(r.width, r.height) * 0.8;
+      if (Math.hypot(dx, dy) > radius) { resetMagnet(); return; }
+      magnetArea.classList.add('is-tracking');
+      moveMagnet(dx, dy);
+    };
+
+    magnetArea.addEventListener('pointermove', (e) => {
+      if (!motionOk) return;
+      if (e.pointerType === 'touch' && e.buttons === 0) return;
+      magnetEvent = e;
+      if (!magnetFrame) magnetFrame = requestAnimationFrame(applyMagnet);
+    });
+    ['pointerleave', 'pointerup', 'pointercancel'].forEach(type => {
+      magnetArea.addEventListener(type, (e) => {
+        if (type === 'pointerup' && e.pointerType !== 'touch') return;
+        magnetEvent = null;
+        resetMagnet();
+      });
+    });
+
+    const playMagnet = () => {
+      magnetDemo.forEach(a => a.cancel());
+      resetMagnet();
+      // Recorrido del "cursor" de demostración, en px desde el centro
+      const path = [[0, 0], [-120, -55], [95, 40], [45, -70], [0, 0]];
+      const opts = { duration: 2600, easing: 'ease-in-out' };
+      magnetDemo = [
+        magnetGhost.animate(path.map(([x, y], i) => ({
+          transform: `translate(${x * 1.4}px, ${y * 1.4}px)`,
+          opacity: i === 0 || i === path.length - 1 ? 0 : 0.9,
+        })), opts),
+        magnetBtn.animate(path.map(([x, y]) => ({
+          transform: `translate(${x * 1.4 * PULL_BTN}px, ${y * 1.4 * PULL_BTN}px)`,
+        })), opts),
+        magnetLabel.animate(path.map(([x, y]) => ({
+          transform: `translate(${x * 1.4 * PULL_LABEL}px, ${y * 1.4 * PULL_LABEL}px)`,
+        })), opts),
+      ];
+    };
+
+    /* ---------- Reproducción ---------- */
+    const play = (card, { replay = false } = {}) => {
+      card.dataset.played = 'true';
+      switch (card.dataset.anim) {
+        case 'mask':
+          restart(card);
+          break;
+        case 'scramble': {
+          scrambleTo(scrTitle, currentText());
+          scrambleTo(scrSub, MASK_SUB_TEXT, { duration: 900, delay: 300 });
+          break;
+        }
+        case 'curtain':
+          playCurtain(replay);
+          break;
+        case 'magnet':
+          playMagnet();
+          break;
+      }
+    };
+
+    const animCards = $$('[data-anim]');
+    const ARMED = ['mask', 'curtain']; // las que arrancan ocultas hasta reproducirse
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const card = entry.target;
+        if (!entry.isIntersecting || !motionOk || card.dataset.played) return;
+        play(card);
+        observer.unobserve(card);
+      });
+    }, { threshold: 0.45 });
+
+    const replayButtons = $$('[data-replay]');
+    replayButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (!motionOk) return;
+        play(btn.closest('[data-anim]'), { replay: true });
+      });
+    });
+
+    const enableMotion = () => {
+      motionOk = true;
+      root.classList.add('motion-ok');
+      replayButtons.forEach(b => { b.disabled = false; });
+      $('[data-motion-notice]').hidden = true;
+
+      animCards.forEach(card => {
+        if (card.dataset.played) return;
+        if (ARMED.includes(card.dataset.anim)) card.classList.add('is-armed');
+        const r = card.getBoundingClientRect();
+        const visible = r.top < window.innerHeight * 0.8 && r.bottom > window.innerHeight * 0.2;
+        if (visible) { play(card); observer.unobserve(card); }
+      });
+    };
+
+    if (motionOk) {
+      root.classList.add('motion-ok');
+      animCards.forEach(card => {
+        if (ARMED.includes(card.dataset.anim)) card.classList.add('is-armed');
+      });
+    } else {
+      $('[data-motion-notice]').hidden = false;
+      replayButtons.forEach(b => {
+        b.disabled = true;
+        b.title = 'Activá las animaciones con Mostrarlas igual';
+      });
+    }
+    $('[data-motion-enable]').addEventListener('click', enableMotion);
+    animCards.forEach(card => observer.observe(card));
+
+    /* ---------- Texto de prueba ---------- */
+    const input = $('#sampleText');
+    const currentText = () => input.value.trim() || DEFAULT_TEXT;
+
+    const renderSampleTitle = (el, text) => {
+      if (!('italicLast' in el.dataset)) { el.textContent = text; return; }
+      const cut = text.lastIndexOf(' ');
+      if (cut < 0) { el.textContent = text; return; }
+      const em = document.createElement('em');
+      em.textContent = text.slice(cut + 1);
+      el.replaceChildren(text.slice(0, cut + 1), em);
+    };
+
+    const updateText = () => {
+      const text = currentText();
+      $$('[data-sample-title]').forEach(el => renderSampleTitle(el, text));
+      buildMask(text);
+      // Mientras se escribe, la máscara queda quieta (salvo que todavía no se haya reproducido)
+      maskCard.classList.remove('is-playing');
+      setScrambleStatic(scrTitle, text);
+    };
+
+    input.addEventListener('input', updateText);
+    buildMask(currentText());
+
+    /* ---------- Elección ---------- */
+    const STORE_KEY = 'muestrario-eleccion';
+    const loadPicks = () => {
+      try { return JSON.parse(localStorage.getItem(STORE_KEY)) || []; }
+      catch { return []; }
+    };
+    const savePicks = () => {
+      try { localStorage.setItem(STORE_KEY, JSON.stringify([...picks])); } catch {}
+    };
+    const picks = new Set(loadPicks());
+
+    const pickItems = $$('[data-pick-id]');
+    const summaryEl = $('[data-tray-summary]');
+    const copyBtn = $('[data-copy]');
+    const statusEl = $('[data-copy-status]');
+
+    const chosen = (group) => pickItems.filter(el => el.dataset.pickGroup === group && picks.has(el.dataset.pickId));
+
+    const renderTray = () => {
+      const fonts = chosen('tipografia');
+      const anims = chosen('animacion');
+      const parts = [];
+      if (fonts.length) parts.push(`Tipografías: ${fonts.map(el => el.dataset.pickLabel).join(', ')}`);
+      if (anims.length) parts.push(`Animaciones: ${anims.map(el => el.dataset.pickLabel).join(', ')}`);
+      summaryEl.textContent = parts.length ? `${parts.join('. ')}.` : 'Todavía no marcaste nada.';
+      copyBtn.disabled = !parts.length;
+    };
+
+    const buildCopyText = () => {
+      const fonts = chosen('tipografia');
+      const anims = chosen('animacion');
+      const lines = ['Del muestrario me gustaron:'];
+      if (fonts.length) lines.push(`Tipografías: ${fonts.map(el => `${el.dataset.pickLabel} (${el.dataset.pickDetail})`).join(', ')}`);
+      if (anims.length) lines.push(`Animaciones: ${anims.map(el => el.dataset.pickLabel).join(', ')}`);
+      return lines.join('\n');
+    };
+
+    pickItems.forEach(item => {
+      const id = item.dataset.pickId;
+      const btn = $('[data-pick]', item);
+      btn.setAttribute('aria-pressed', String(picks.has(id)));
+      btn.addEventListener('click', () => {
+        if (picks.has(id)) picks.delete(id); else picks.add(id);
+        btn.setAttribute('aria-pressed', String(picks.has(id)));
+        savePicks();
+        renderTray();
+      });
+    });
+
+    const copyText = async (text) => {
+      try {
+        await navigator.clipboard.writeText(text);
+        return true;
+      } catch {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.append(ta);
+        ta.select();
+        let ok = false;
+        try { ok = document.execCommand('copy'); } catch {}
+        ta.remove();
+        return ok;
+      }
+    };
+
+    let copyTimer = 0;
+    copyBtn.addEventListener('click', async () => {
+      const ok = await copyText(buildCopyText());
+      copyBtn.textContent = ok ? 'Copiado' : 'No se pudo copiar';
+      statusEl.textContent = ok ? 'Copiado. Pegalo en el chat.' : 'No se pudo copiar la elección.';
+      clearTimeout(copyTimer);
+      copyTimer = setTimeout(() => { copyBtn.textContent = 'Copiar elección'; }, 2200);
+    });
+
+    renderTray();
+  })();
+  </script>
+</body>
+</html>

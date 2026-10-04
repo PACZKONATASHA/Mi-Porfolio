@@ -3,173 +3,246 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Natasha Paczko — Diseño y desarrollo web</title>
-  <meta name="description" content="Portfolio de Natasha Paczko. Diseño y desarrollo web." />
+  <title>Natasha Paczko - Diseño y desarrollo web</title>
+  <meta name="description" content="Portfolio de Natasha Paczko. Diseño y desarrollo web: landing pages, páginas con varias secciones y catálogos con carrito a WhatsApp." />
+  <meta name="theme-color" content="#080708" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Tipografía "Audaz": Clash Display (títulos) + Satoshi (textos), de Fontshare.
+       Un link por familia porque la API no combina bien varias. -->
+  <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600&display=swap" rel="stylesheet">
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+
+  <!-- El modelo empieza a bajar en paralelo con Three.js -->
+  <link rel="preload" href="models/laptop.glb" as="fetch" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 
   <link rel="stylesheet" href="css/style.css">
+
   <noscript>
     <style>
-      .hero-spotlight { display: none; }
+      .loader-bar, [data-loader-message] { display: none; }
     </style>
   </noscript>
+
+  <!-- Three.js y GSAP desde el CDN, sin npm. Las versiones quedan fijas para que nada cambie solo. -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.186.1/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.186.1/examples/jsm/",
+        "gsap": "https://cdn.jsdelivr.net/npm/gsap@3.15.0/index.js",
+        "gsap/": "https://cdn.jsdelivr.net/npm/gsap@3.15.0/"
+      }
+    }
+  </script>
 </head>
 <body>
 
-  <div class="page-reveal" data-reveal-curtain aria-hidden="true"></div>
+  <!-- Fondo fijo: la laptop 3D, con un color de fondo que cambia en cada sección -->
+  <div class="scene" data-scene>
+    <canvas class="scene-canvas" data-scene-canvas role="img" aria-label="Laptop en 3D con el nombre Natasha Paczko en la pantalla"></canvas>
+  </div>
 
-  <header class="header" id="top">
-    <a class="brand" href="#top">
+  <header class="site-header">
+    <a class="brand" href="#inicio">
       <span class="brand-avatar">
-        <span class="brand-avatar-crop">
-          <img src="img/natasha-avatar.jpg" alt="" width="72" height="72" />
-        </span>
-        <span class="brand-status" aria-hidden="true"></span>
+        <img src="img/natasha-avatar.jpg" alt="" width="34" height="34" />
       </span>
       <span class="brand-name">Natasha Paczko</span>
     </a>
 
     <nav class="nav-desktop" aria-label="Navegación principal">
-      <a href="#top">Inicio</a>
+      <a href="#inicio">Inicio</a>
+      <a href="#sobre-mi">Sobre mí</a>
+      <a href="#servicios">Servicios</a>
       <a href="#proyectos">Proyectos</a>
       <a href="#contacto">Contacto</a>
     </nav>
 
-    <button class="menu-btn" type="button" id="menuBtn" aria-label="Abrir menú" aria-expanded="false" aria-controls="menuMobile">
+    <button class="menu-btn" type="button" data-menu-btn aria-label="Abrir menú" aria-expanded="false" aria-controls="menu-mobile">
       <span></span><span></span>
     </button>
 
-    <nav class="nav-mobile" id="menuMobile" aria-label="Menú móvil">
-      <a href="#top">Inicio</a>
+    <nav class="nav-mobile" id="menu-mobile" data-menu aria-label="Menú">
+      <a href="#inicio">Inicio</a>
+      <a href="#sobre-mi">Sobre mí</a>
+      <a href="#servicios">Servicios</a>
       <a href="#proyectos">Proyectos</a>
       <a href="#contacto">Contacto</a>
     </nav>
   </header>
 
-  <main>
+  <main class="sections" data-sections>
 
-    <section class="hero">
-      <div class="hero-bg" aria-hidden="true">
-        <img src="img/foto-de-hero.jpg" alt="" />
-        <div class="hero-bg-clouds"></div>
-        <div class="hero-bg-stars" data-hero-stars></div>
+    <section class="section section--inicio" id="inicio" data-section="inicio" data-hero>
+      <!-- Anillo de proyectos que gira alrededor de la laptop; las tarjetas las arma js/interface.js -->
+      <div class="hero-ring" data-hero-ring role="group" aria-label="Proyectos: elegí uno para verlo en la pantalla de la laptop"></div>
+      <p class="hero-ring-hint" aria-hidden="true">Arrastrá para girar</p>
+
+      <!-- "Diseño" y "web" van a cada lado de la laptop; su posición la calcula js/scene.js -->
+      <h1 class="hero-title" aria-label="Diseño web">
+        <span class="hero-word hero-word--left" data-hero-word aria-hidden="true">Diseño</span>
+        <span class="hero-word hero-word--right" data-hero-word aria-hidden="true">web</span>
+      </h1>
+
+      <div class="hero-copy">
+        <p class="hero-tagline">Diseñadora y desarrolladora web</p>
+        <p class="hero-hint">Tocá un proyecto para verlo en la pantalla de la laptop</p>
       </div>
-      <div class="hero-overlay" aria-hidden="true"></div>
 
-      <div class="hero-cursor" data-hero-cursor aria-hidden="true"></div>
-
-      <div class="hero-gallery" data-hero-gallery aria-hidden="true"></div>
-
-      <div class="hero-spotlight-big" data-hero-spotlight-big aria-hidden="true">
-        <img data-hero-spotlight-big-img src="" alt="" />
-      </div>
-
-      <h1 class="hero-name"
-          data-typewriter-loop
-          data-words="Natasha Paczko,Mi portfolio,Diseño web"
-          aria-label="Natasha Paczko"
-      ><span class="hero-name-word" data-typewriter-loop-word aria-hidden="true">Natasha Paczko</span></h1>
-
-      <p class="hero-tagline">Diseñadora y desarrolladora web</p>
-
-      <p class="hero-hint">Tocá el cielo y iluminate con imágenes de algunos de mis proyectos</p>
-
-      <a class="scroll-cue" href="#proyectos" aria-label="Ir a proyectos">
-        <span class="scroll-cue-line"></span>
-        <span class="scroll-cue-text">Scroll</span>
-      </a>
-    </section>
-
-    <section class="marquee" aria-hidden="true">
-      <div class="marquee-track">
-        <span>Golden Detailing</span><span class="marquee-dot">·</span>
-        <span>Barra de Access</span><span class="marquee-dot">·</span>
-        <span>Mala Male</span><span class="marquee-dot">·</span>
-        <span>DELoi3D</span><span class="marquee-dot">·</span>
-        <span>Golden Detailing</span><span class="marquee-dot">·</span>
-        <span>Barra de Access</span><span class="marquee-dot">·</span>
-        <span>Mala Male</span><span class="marquee-dot">·</span>
-        <span>DELoi3D</span><span class="marquee-dot">·</span>
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee-track">
+          <span>Golden Detailing</span><span class="marquee-dot">·</span>
+          <span>Barra de Access</span><span class="marquee-dot">·</span>
+          <span>Mala Male</span><span class="marquee-dot">·</span>
+          <span>DELoi3D</span><span class="marquee-dot">·</span>
+          <span>Golden Detailing</span><span class="marquee-dot">·</span>
+          <span>Barra de Access</span><span class="marquee-dot">·</span>
+          <span>Mala Male</span><span class="marquee-dot">·</span>
+          <span>DELoi3D</span><span class="marquee-dot">·</span>
+        </div>
       </div>
     </section>
 
-    <section class="work" id="proyectos">
-      <div class="work-head" data-reveal>
-        <div class="work-head-text">
-          <span class="eyebrow">Proyectos</span>
-          <h2 class="work-title"
+    <section class="section section--sobre-mi" id="sobre-mi" data-section="sobre-mi">
+      <div class="about" data-reveal>
+        <h2 class="section-title">Sobre mí</h2>
+        <!-- Pendiente: un párrafo corto de presentación (la versión anterior no tenía uno). -->
+        <figure class="about-figure">
+          <img src="img/natasha-avatar.jpg" alt="Retrato de Natasha Paczko" width="420" height="525" loading="lazy" />
+          <figcaption>Diseñadora y desarrolladora web</figcaption>
+        </figure>
+        <ul class="tools" data-tools hidden></ul>
+      </div>
+    </section>
+
+    <section class="section section--servicios" id="servicios" data-section="servicios">
+      <div class="services" data-reveal>
+        <h2 class="section-title">Servicios</h2>
+        <ul class="services-list">
+          <li class="service">
+            <h3 class="service-name">Landing Page simple</h3>
+            <p class="service-desc">Muestra un servicio, producto o emprendimiento de forma clara y directa, con botón directo a WhatsApp.</p>
+          </li>
+          <li class="service">
+            <h3 class="service-name">Landing Page con formulario</h3>
+            <p class="service-desc">Suma un formulario propio: la consulta del cliente se envía directo por WhatsApp.</p>
+          </li>
+          <li class="service">
+            <h3 class="service-name">Página con varias secciones</h3>
+            <p class="service-desc">Una página más completa, con varias secciones para mostrar más información del negocio.</p>
+          </li>
+          <li class="service">
+            <h3 class="service-name">Catálogo con carrito a WhatsApp</h3>
+            <p class="service-desc">Catálogo de productos con carrito: el pedido se arma y se envía por WhatsApp.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section section--proyectos" id="proyectos" data-section="proyectos" data-projects>
+      <!-- Mientras se scrollea esta sección, el escenario queda fijo y las
+           capturas pasan por detrás de la laptop (ver js/interface.js) -->
+      <div class="work-stage" data-reveal>
+        <div class="work-head">
+          <h2 class="section-title"
               data-typewriter-loop
               data-words="Mis Proyectos"
               aria-label="Mis Proyectos"
-          ><span class="work-title-word" data-typewriter-loop-word aria-hidden="true">Mis Proyectos</span></h2>
-        </div>
-        <span class="work-count"><span data-count-current>01</span> / <span data-count-total>04</span></span>
-      </div>
-
-      <div class="work-stage">
-        <div class="work-visual" data-work-visual>
-          <a class="work-visual-link" data-work-link href="#" target="_blank" rel="noopener noreferrer">
-            <img data-work-img src="" alt="" />
-          </a>
-          <span class="cursor-label" data-cursor-label>Ver en vivo</span>
+          ><span data-typewriter-loop-word aria-hidden="true">Mis Proyectos</span></h2>
+          <span class="work-count"><span data-count-current>01</span> / <span data-count-total>04</span></span>
         </div>
 
-        <div class="work-info" data-work-info>
-          <span class="work-info-num" data-work-num>01</span>
-          <h2 class="work-info-name" data-work-name></h2>
-          <span class="work-info-type" data-work-type></span>
-          <p class="work-info-desc" data-work-desc></p>
-          <p class="work-info-role" data-work-role hidden></p>
-          <ul class="work-info-stack" data-work-stack hidden></ul>
-          <div class="work-info-links">
-            <a class="work-info-link" data-work-link href="#" target="_blank" rel="noopener noreferrer">
-              Ver en vivo
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        <div class="work-strip">
+          <div class="work-track" data-work-track></div>
+        </div>
+
+        <div class="work-info" data-work-info aria-live="polite">
+          <h3 class="work-name" data-work-name>Golden Detailing</h3>
+          <span class="work-type" data-work-type>Landing Page simple</span>
+          <p class="work-role" data-work-role hidden></p>
+          <ul class="work-stack" data-work-stack hidden></ul>
+          <div class="work-links">
+            <!-- Se activa cuando un proyecto queda en el centro, en la pantalla de la laptop -->
+            <a class="work-cta" data-work-link href="https://golden-detailing.vercel.app/" target="_blank" rel="noopener noreferrer">
+              Ver proyecto
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
             </a>
-            <a class="work-info-link" data-work-github href="#" target="_blank" rel="noopener noreferrer" hidden>
+            <a class="work-link" data-work-github href="#" target="_blank" rel="noopener noreferrer" hidden>
               GitHub
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
             </a>
           </div>
         </div>
 
-        <aside class="work-creative">
-          <img src="img/creativo-astronauta.png" alt="Ilustración de un astronauta caminando entre flores rosas y nubes, estilo onírico" />
-          <span class="work-creative-caption">Mi lado creativo</span>
-        </aside>
+        <div class="work-controls">
+          <button class="work-arrow" type="button" data-work-prev aria-label="Proyecto anterior">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <div class="work-progress"><div class="work-progress-bar" data-work-progress></div></div>
+          <button class="work-arrow" type="button" data-work-next aria-label="Siguiente proyecto">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+        </div>
       </div>
-
-      <div class="work-controls">
-        <button class="work-arrow" type="button" data-work-prev aria-label="Proyecto anterior">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-        </button>
-
-        <div class="work-names" data-work-names></div>
-
-        <button class="work-arrow" type="button" data-work-next aria-label="Siguiente proyecto">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-        </button>
-      </div>
-
-      <div class="work-progress"><div class="work-progress-bar" data-work-progress></div></div>
     </section>
 
-    <section class="stack" data-stack aria-label="Tecnologías y herramientas" hidden>
-      <span class="eyebrow">Stack</span>
-      <ul class="stack-list" data-stack-list></ul>
+    <section class="section section--contacto" id="contacto" data-section="contacto">
+      <div class="contact" data-reveal>
+        <h2 class="section-title">Contacto</h2>
+        <!-- Los enlaces salen de CONTACT en js/data.js -->
+        <nav class="contact-links" data-contact-links aria-label="Contacto" hidden></nav>
+      </div>
     </section>
 
   </main>
 
-  <footer class="footer" id="contacto">
-    <span class="footer-name">Natasha Paczko</span>
-    <nav class="footer-links" data-footer-links aria-label="Contacto"></nav>
-    <span class="footer-copy">© <span data-year></span></span>
+  <footer class="site-footer">
+    <span class="footer-copy">© <span data-year>2026</span> Natasha Paczko</span>
+    <p class="credit">
+      Modelo 3D
+      «<a href="https://sketchfab.com/3d-models/psx-laptop-b6b33b14220a460a94176412ff284012" target="_blank" rel="noopener noreferrer">PSX Laptop</a>»
+      de <a href="https://sketchfab.com/designrobco" target="_blank" rel="noopener noreferrer">Tomitos</a>,
+      licencia <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>.
+      Material adaptado.
+    </p>
   </footer>
 
-  <script src="js/main.js"></script>
+  <!-- Sigue al mouse sobre la pantalla de la laptop, en Proyectos -->
+  <span class="cursor-label" data-cursor-label aria-hidden="true">Ver proyecto</span>
+
+  <!-- Pantalla de carga: se ve desde el primer instante, antes de que llegue el JS -->
+  <div class="loader" data-loader>
+    <div class="loader-bar" data-loader-bar role="progressbar" aria-label="Cargando el modelo 3D" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+      <span class="loader-cell" data-loader-cell></span>
+      <span class="loader-cell" data-loader-cell></span>
+      <span class="loader-cell" data-loader-cell></span>
+      <span class="loader-cell" data-loader-cell></span>
+      <span class="loader-cell" data-loader-cell></span>
+      <span class="loader-cell" data-loader-cell></span>
+      <span class="loader-cell" data-loader-cell></span>
+      <span class="loader-cell" data-loader-cell></span>
+      <span class="loader-cell" data-loader-cell></span>
+      <span class="loader-cell" data-loader-cell></span>
+    </div>
+    <p class="loader-label" data-loader-message aria-live="polite">Cargando <span data-loader-pct aria-hidden="true">0%</span></p>
+    <button class="loader-continue" type="button" data-loader-continue hidden>Ver el sitio sin 3D</button>
+    <noscript><p class="loader-label">Activá JavaScript para ver el sitio.</p></noscript>
+  </div>
+
+  <script>
+    // Si el módulo no llega a cargar (sin conexión al CDN, o la página abierta
+    // con doble clic como archivo), la pantalla de carga explica el motivo.
+    function sceneScriptFailed() {
+      var loader = document.querySelector('[data-loader]');
+      loader.dataset.state = 'error';
+      loader.querySelector('[data-loader-message]').textContent = location.protocol === 'file:'
+        ? 'Para ver el sitio, abrí la página desde un servidor local (por ejemplo, con Live Server en VS Code).'
+        : 'No se pudo cargar el sitio. Revisá tu conexión y recargá la página.';
+    }
+  </script>
+  <script type="module" src="js/main.js" onerror="sceneScriptFailed()"></script>
 </body>
 </html>
